@@ -1,5 +1,9 @@
-import tkinter
+import customtkinter as ctk
 
-root = tkinter.Tk()
+root = ctk.CTk()
 
-root.mainloop()
+def initMainWindow(root, width, height):
+    root.geometry(str(width) + 'x' + str(height))
+    root.mainloop()
+
+initMainWindow(root, 600, 600)

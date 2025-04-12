@@ -5,6 +5,7 @@ import pdfplumber
 #content = file.read()
 #print(content)
 
+deckName = ""
 
 #def ExtractQuestionAnswer():
 #    with pdfplumber.open('test.pdf') as pdf:
@@ -13,9 +14,16 @@ import pdfplumber
 #            question_text = text.filter(lambda obj: obj["object_type"] == "char" and "Bold" in obj["fontname"])
 #            answer_text = 
 #            print(question_text.extract_text())
+
+def GenerateCards(pathToFile, choosenDeckName):
+    deckName = choosenDeckName
+    ExtractQuestionAnswer(pathToFile)
+
+
+
 my_deck = genanki.Deck(
         2059400110,
-        'Test Deck ahHAH')
+        deckName)
 
 
 #ExtractQuestionAnswer()
@@ -46,7 +54,7 @@ def MakeQuestions(question, answer):
 
     my_deck.add_note(my_note)
 
-def ExtractQuestionAnswer():
+def ExtractQuestionAnswer(pathToFile):
     questions = []
     answers = []
     
@@ -54,24 +62,24 @@ def ExtractQuestionAnswer():
         for page in pdf.pages:
             question = ""
             answer = ""
-            in_question = False  # Track whether we're in a question
+            in_question = False 
             
             for obj in page.extract_words(extra_attrs=["fontname"]):
-                if "Bold" in obj["fontname"]:  # Identifying bold text
-                    if in_question:  # If already in a question, append
+                if "Bold" in obj["fontname"]:  
+                    if in_question:  
                         question += " " + obj["text"]
                     else:
-                        if question and answer:  # Store previous Q&A
+                        if question and answer:  
                             questions.append(question.strip())
                             answers.append(answer.strip())
-                        question = obj["text"]  # Start new question
+                        question = obj["text"]  
                         answer = ""
                         in_question = True
                 else:
                     answer += " " + obj["text"]
                     in_question = False
             
-            # Store last question-answer pair
+            
             if question and answer:
                 questions.append(question.strip())
                 answers.append(answer.strip())
@@ -81,4 +89,4 @@ def ExtractQuestionAnswer():
 
     genanki.Package(my_deck).write_to_file('output.apkg')
 
-ExtractQuestionAnswer()
+#ExtractQuestionAnswer()

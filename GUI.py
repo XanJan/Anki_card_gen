@@ -9,7 +9,7 @@ height = 600
 filename = ""
 
 root.geometry(str(width) + 'x' + str(height))
-lable = ctk.CTkLabel(root, text="Anki card generator",            
+lable = ctk.CTkLabel(root, text="Anki Deck generator",            
                      width=200, 
                 height=750, 
                 font=('Roboto', 20))
@@ -19,10 +19,13 @@ lable.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
 
 textbox = ctk.CTkTextbox(root, width=300, height=25, corner_radius=5)
 textbox.insert("0.0", "Path to pdf")  # insert at line 0 character 0
-text = textbox.get("0.0", "end")  # get text from line 0 character 0 till the end
-#textbox.delete("0.0", "end")  # delete all text
 textbox.configure(state="normal") 
-textbox.place(relx=0.4, rely=0.2, anchor=tk.CENTER)
+textbox.place(relx=0.4, rely=0.4, anchor=tk.CENTER)
+
+infoBox = ctk.CTkTextbox(root, width=550, height=100, corner_radius=5)
+infoBox.insert("0.0", "Welcome to the Anki Deck Generator, an app that can take a pdf file with questions and answers and make them into an anki deck.")  # insert at line 0 character 0
+infoBox.configure(state="disabled")  # configure textbox to be read-only
+infoBox.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
 
 
 #__________________________________________BUTTON  FUNCTIONS______________________________________________________
@@ -33,7 +36,6 @@ def UploadAction(event=None):
     print("Selected: ", filename)
     
 def GenerateAction(event=None):
-    #filename= filedialog.askopenfilename()
     anki_gen.GenerateCards(filename, "TestDeckFromGUI")
     print("Generating: ", filename)
 
@@ -41,16 +43,11 @@ def GenerateAction(event=None):
 
 button1 = ctk.CTkButton(root, text="Upload file", command=UploadAction)
 #button.pack(padx=20, pady=70)
-button1.place(relx=0.8, rely=0.2, anchor=tk.CENTER)
+button1.place(relx=0.8, rely=0.4, anchor=tk.CENTER)
 
 button2 = ctk.CTkButton(root, text="Generate .apkg file", command=GenerateAction)
 #button.pack(padx=20, pady=90)
-button2.place(relx = 0.5, rely = 0.5, anchor=tk.CENTER)
+button2.place(relx = 0.5, rely = 0.6, anchor=tk.CENTER)
 
-
-#textbox.pack()
-
-#button1.grid(row=0, column=0)
-#button2.grid(row=1, column=0)
 
 root.mainloop()

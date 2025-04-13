@@ -31,16 +31,16 @@ my_deck = genanki.Deck(
 def MakeQuestions(question, answer):
     model = genanki.Model(
     1607392319,
-    'Test Model',
+    'Model',
     fields=[
-        {'name': 'testQuestion'},
-        {'name': 'testAnswer'},
+        {'name': 'Question'},
+        {'name': 'Answer'},
     ],
     templates=[
     {
-      'name': 'Card 1',
-      'qfmt': '{{testQuestion}}',
-      'afmt': '{{FrontSide}}<hr id="answer">{{testAnswer}}',
+      'name': 'Quiz Question',
+      'qfmt': '{{Question}}',
+      'afmt': '{{FrontSide}}<hr id="answer">{{Answer}}',
     },
   ])
 
@@ -58,7 +58,7 @@ def ExtractQuestionAnswer(pathToFile):
     questions = []
     answers = []
     
-    with pdfplumber.open("test.pdf") as pdf:
+    with pdfplumber.open(pathToFile) as pdf:
         for page in pdf.pages:
             question = ""
             answer = ""
